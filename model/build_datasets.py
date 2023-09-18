@@ -34,8 +34,8 @@ for f in os.listdir(input_path):
             path_img = "{}/{}.png".format(input_path, file_name)
             paths.append(file_name)
 
-evaluation_samples_number = len(paths) / (distribution + 1)
-training_samples_number = evaluation_samples_number * distribution
+evaluation_samples_number = len(paths) // (distribution + 1)
+training_samples_number = len(paths) - evaluation_samples_number
 
 assert training_samples_number + evaluation_samples_number == len(paths)
 

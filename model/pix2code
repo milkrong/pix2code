@@ -37,11 +37,13 @@ file_name=${base_name%.*}
 rm -rf ../bin/pix2code.h5
 rm -rf ../bin/pix2code.json
 rm -rf ../bin/meta_dataset.npy
+rm -rf ../bin/meta_dataset2.npy
 rm -rf ../bin/words.vocab
 
 cp ../results/${TARGET}_results/pix2code.h5 ../bin/
 cp ../results/${TARGET}_results/pix2code.json ../bin/
 cp ../results/${TARGET}_results/meta_dataset.npy ../bin/
+cp ../results/${TARGET}_results/meta_dataset2.npy ../bin/
 cp ../results/${TARGET}_results/words.vocab ../bin/
 
 echo "Generating code with pre-trained model..."
