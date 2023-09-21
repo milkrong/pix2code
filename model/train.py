@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 from __future__ import print_function
 from __future__ import absolute_import
-__author__ = 'Tony Beltramelli - www.tonybeltramelli.com'
 
 import tensorflow as tf
-# sess = tf.Session(config=tf.ConfigProto(log_device_placement=True))
+sess = tf.compat.v1.Session()
+file_writer = tf.summary.FileWriter('../logs', sess.graph)
 
 import sys
 
@@ -41,7 +41,7 @@ def run(input_path, output_path, is_memory_intensive=False, pretrained_model=Non
         generator = Generator.data_generator(voc, gui_paths, img_paths, batch_size=BATCH_SIZE, generate_binary_sequences=True)
 
     model = pix2code(input_shape, output_size, output_path)
-
+    
     if pretrained_model is not None:
         model.model.load_weights(pretrained_model)
 
