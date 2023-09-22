@@ -17,9 +17,9 @@ class Utils:
         return np.array(sparse_vector)
 
     @staticmethod
-    def get_preprocessed_img(img_path, image_size):
+    def get_preprocessed_img(image_string, image_size):
         import cv2
-        img = cv2.imread(img_path)
+        img = cv2.imdecode(image_string, cv2.IMREAD_UNCHANGED)
         img = cv2.resize(img, (image_size, image_size))
         img = img.astype('float32')
         img /= 255
