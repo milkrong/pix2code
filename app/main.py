@@ -1,22 +1,15 @@
-import os
-
 from flask import Flask
 
 from flask_restful import Api
+from app.service.dsl import DslResource
+from app.model_generator import load_model
 
-import service.dsl
-
-ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
-
-
-def main():
+def run_app():
 
     app = Flask(__name__)
     api_instance = Api(app)
-    api_instance.add_resource(service.dsl.DslResource, '/', '/generate_dsl')
-
+    api_instance.add_resource(DslResource, '/', '/generate_dsl')
+    print('load model')
+    load_model()
     app.run(debug=True)
-
-
-if __name__ == '__main__':
-    main()
+  

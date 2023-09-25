@@ -12,7 +12,7 @@ from .AModel import *
 
 
 class pix2code(AModel):
-    def __init__(self, input_shape, output_size, output_path):
+    def __init__(self, input_shape, output_size, output_path = None):
         AModel.__init__(self, input_shape, output_size, output_path)
         self.name = "pix2code"
 
