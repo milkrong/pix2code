@@ -7,6 +7,8 @@ from .classes.Sampler import *
 
 from app.model_generator import model, input_shape, output_size
 from app.config import TRAINED_MODEL_WEIGHTS
+from .classes.model.Config import CONTEXT_LENGTH, IMAGE_SIZE
+
 
 def sample_image(file):
     print(input_shape)

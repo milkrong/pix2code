@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 from __future__ import print_function
 from __future__ import absolute_import
-__author__ = 'Tony Beltramelli - www.tonybeltramelli.com'
+
 
 import os
 import sys
@@ -13,8 +13,10 @@ argv = sys.argv[1:]
 
 if len(argv) < 4:
     print("Error: not enough argument supplied:")
-    print("generate.py <trained weights path> <trained model name> <input image> <output path> <search method ("
-          "default: greedy)>")
+    print(
+        "generate.py <trained weights path> <trained model name> <input image> <output path> <search method ("
+        "default: greedy)>"
+    )
     exit(0)
 else:
     trained_weights_path = argv[0]
@@ -28,16 +30,18 @@ meta_dataset2 = np.load("{}/meta_dataset2.npy".format(trained_weights_path))
 input_shape = meta_dataset2[0]
 output_size = meta_dataset[0]
 
-model = pix2code(input_shape, output_size, trained_weights_path)
+model = Pix2code(input_shape, output_size, trained_weights_path)
 model.load(trained_model_name)
 
 sampler = Sampler(trained_weights_path, input_shape, output_size, CONTEXT_LENGTH)
 
 for f in os.listdir(input_path):
     if f.find(".png") != -1:
-        evaluation_img = Utils.get_preprocessed_img("{}/{}".format(input_path, f), IMAGE_SIZE)
+        evaluation_img = Utils.get_preprocessed_img(
+            "{}/{}".format(input_path, f), IMAGE_SIZE
+        )
 
-        file_name = f[:f.find(".png")]
+        file_name = f[: f.find(".png")]
 
         if search_method == "greedy":
             result, _ = sampler.predict_greedy(model, np.array([evaluation_img]))
@@ -45,8 +49,10 @@ for f in os.listdir(input_path):
         else:
             beam_width = int(search_method)
             print("Search with beam width: {}".format(beam_width))
-            result, _ = sampler.predict_beam_search(model, np.array([evaluation_img]), beam_width=beam_width)
+            result, _ = sampler.predict_beam_search(
+                model, np.array([evaluation_img]), beam_width=beam_width
+            )
             print("Result beam: {}".format(result))
 
-        with open("{}/{}.gui".format(output_path, file_name), 'w') as out_f:
+        with open("{}/{}.gui".format(output_path, file_name), "w") as out_f:
             out_f.write(result.replace(START_TOKEN, "").replace(END_TOKEN, ""))
