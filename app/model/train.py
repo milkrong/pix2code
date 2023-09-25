@@ -3,6 +3,9 @@ from __future__ import print_function
 from __future__ import absolute_import
 
 import tensorflow as tf
+
+from app.model.classes.dataset.Dataset import Dataset
+
 sess = tf.compat.v1.Session()
 file_writer = tf.summary.FileWriter('../logs', sess.graph)
 
@@ -38,10 +41,11 @@ def run(input_path, output_path, is_memory_intensive=False, pretrained_model=Non
         voc = Vocabulary()
         voc.retrieve(output_path)
 
-        generator = Generator.data_generator(voc, gui_paths, img_paths, batch_size=BATCH_SIZE, generate_binary_sequences=True)
+        generator = Generator.data_generator(voc, gui_paths, img_paths, batch_size=BATCH_SIZE,
+                                             generate_binary_sequences=True)
 
     model = pix2code(input_shape, output_size, output_path)
-    
+
     if pretrained_model is not None:
         model.model.load_weights(pretrained_model)
 
@@ -49,6 +53,7 @@ def run(input_path, output_path, is_memory_intensive=False, pretrained_model=Non
         model.fit(dataset.input_images, dataset.partial_sequences, dataset.next_words)
     else:
         model.fit_generator(generator, steps_per_epoch=steps_per_epoch)
+
 
 if __name__ == "__main__":
     argv = sys.argv[1:]

@@ -13,7 +13,8 @@ argv = sys.argv[1:]
 
 if len(argv) < 4:
     print("Error: not enough argument supplied:")
-    print("generate.py <trained weights path> <trained model name> <input image> <output path> <search method (default: greedy)>")
+    print("generate.py <trained weights path> <trained model name> <input image> <output path> <search method ("
+          "default: greedy)>")
     exit(0)
 else:
     trained_weights_path = argv[0]

@@ -4,3 +4,4 @@ opencv-python
 h5py
 tensorflow
 flask
+flask-restful
